@@ -1,6 +1,11 @@
 ---
+//css
+import "@styles/global.css"
+
 //components
 import Head from "@components/Head.astro"
+import Nav from "@components/Nav.astro"
+import Footer from "@components/Footer.astro"
 
 //props
 interface Props {
@@ -13,7 +18,9 @@ const { title } = Astro.props
 <!doctype html>
 <html lang="en">
     <Head title="Wesite"/>
-	<body>
+	<body class="container-full-layout">
+        <Nav />
 		<slot />
+        <Footer />
 	</body>
 </html>
