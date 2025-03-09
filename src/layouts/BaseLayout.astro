@@ -1,0 +1,19 @@
+---
+//components
+import Head from "@components/Head.astro"
+
+//props
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props
+---
+
+<!doctype html>
+<html lang="en">
+    <Head title="Wesite"/>
+	<body>
+		<slot />
+	</body>
+</html>
