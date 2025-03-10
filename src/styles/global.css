@@ -109,12 +109,10 @@ p {
   --clr-black: #282828;
   --clr-black-true: #000;
   --clr-gray: #3a3738;
-  --clr-gray-light: rgba(58, 55, 56, 0.8);
+  --clr-gray-light: #e4e7e0;
 
-  --clr-dieter-gray: #e4e7e0;
-  --clr-dieter-gray-light: #fefffa;
-  --clr-dieter-gray-darker: #dadcd4;
-  --clr-dieter-gray-dark: #d0d1c9;
+  --clr-primary: var(--clr-black);
+  --clr-secondary: var(--clr-gray);
 
   /*Status Colors*/
   --clr-danger: #e14000;
@@ -122,28 +120,21 @@ p {
   --clr-ongoing: #dca300;
 
   --clr-text: var(--clr-black);
-  --clr-text-darkmode: var(--clr-dieter-gray);
-  --clr-text-inverted: var(--clr-dieter-gray);
-  --clr-text-light: var(--clr-gray-light);
-  --clr-text-hover: var(--clr-blue-light);
+  --clr-text-inverted: var(--clr-white);
 
-  --clr-bg: var(--clr-dieter-gray);
-  --clr-bg-darkmode: var(--clr-black);
-  --clr-bg-secondary: var(--clr-dieter-gray-dark);
+  --clr-bg: var(--clr-white);
+  --clr-bg-secondary: var(--clr-gray)
   --clr-bg-white: var(--clr-white);
 
-  --clr-border: var(--clr-dieter-gray-dark);
-  --clr-border-white: var(--clr-white);
-  --clr-border-darkmode: var(--clr-gray);
+  --clr-border: var(--clr-gray);
+  --clr-border-inverted: var(--clr-white);
 
   --clr-shadow: rgba(0, 0, 0, 0.2);
 
   /* for Button components */
-  --clr-primary-button: rgba(26, 72, 224, 0.5);
-  --clr-secondary-button: var(--clr-gray-light);
-  --clr-inverted-button: var(--clr-white);
-  --clr-outline-button: var(--clr-primary);
-  --clr-disabled-button: #7f7f7f;
+  --clr-button-primary: var(--clr-primary);
+  --clr-button-secondary: var(--clr-secondary);
+  --clr-button-disabled: #7f7f7f;
 
   /*for shoelace*/
   --sl-color-primary-50: var(--clr-secondary);

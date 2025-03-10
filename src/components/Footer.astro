@@ -1,3 +1,22 @@
+---
+const year = new Date().getFullYear(); 
+
+import { siteInfo } from '@config/main.json'
+---
+
 <footer>
-    <p>Footer</p>
+    <div class="wrapper-main footer-wrapper">
+        <p class="copyright">&copy; {year} | {siteInfo.siteName} | All Rights Reserved</p>
+    </div>
 </footer>
+
+<style>
+    .footer-wrapper {
+        padding: var(--space-m) 0;
+    }
+
+    .copyright {
+        font-size: var(--step--2);
+        color: var(--clr-gray-light);
+    }
+</style>
