@@ -33,7 +33,7 @@ body {
 }
 
 body {
-  background-color: var(--clr-white-true);
+  background-color: var(--clr-bg);
   font-family: var(--ff-body);
   color: var(--clr-text);
   font-size: 100%;
@@ -101,6 +101,7 @@ p {
 /*--------------------------VARIABLES-----------------------------------*/
 /************************************************************************/
 :root {
+  
   /* == Colors == */
   /*For color variations use RGBA, adjust opacity*/
   /*Base colors*/
@@ -113,6 +114,10 @@ p {
 
   --clr-primary: var(--clr-black);
   --clr-secondary: var(--clr-gray);
+
+  /* == Dark == */
+  --cl-bg-dark: #3d3d3d;
+  --cl-text-dark: #f3f4ef;
 
   /*Status Colors*/
   --clr-danger: #e14000;
@@ -136,18 +141,8 @@ p {
   --clr-button-secondary: var(--clr-secondary);
   --clr-button-disabled: #7f7f7f;
 
-  /*for shoelace*/
-  --sl-color-primary-50: var(--clr-secondary);
-  --sl-color-primary-100: var(--clr-secondary);
-  --sl-color-primary-200: var(--clr-secondary);
-  --sl-color-primary-300: var(--clr-secondary);
-  --sl-color-primary-400: var(--clr-secondary);
-  --sl-color-primary-500: var(--clr-secondary);
-  --sl-color-primary-600: var(--clr-secondary);
-  --sl-color-primary-700: var(--clr-secondary);
-  --sl-color-primary-800: var(--clr-secondary);
-  --sl-color-primary-900: var(--clr-secondary);
-  --sl-color-primary-950: var(--clr-secondary);
+  /* == Theme == */
+  color-scheme: light;
 
   /* == Typography == */
   --ff-primary: "Inter Variable", sans-serif;
@@ -200,6 +195,32 @@ p {
   --radius-round: 50px;
   --radius-circle: 50%;
 }
+
+/************************************************************************/
+/*--------------------------DARK/LIGHT THEME----------------------------*/
+/************************************************************************/
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --clr-text: var(--cl-text-dark);
+    --clr-bg: var(--cl-bg-dark);
+    color-scheme: dark;
+  }
+}
+
+[data-theme="dark"] {
+  --clr-text: var(--cl-text-dark);
+  --clr-bg: var(--cl-bg-dark);
+  color-scheme: dark; 
+}
+
+[data-theme="light"] {
+  --clr-text: var(--cl-text);
+  --clr-bg: var(--cl-bg);
+  color-scheme: light;
+}
+
+
 
 /************************************************************************/
 /*-------------------------UTILITY CONTAINERS---------------------------*/
@@ -416,3 +437,4 @@ p {
     --radius: 0.5rem;
   }
 }
+
