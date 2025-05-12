@@ -1,13 +1,15 @@
 ---
 //layouts
-import BaseLayout from "@layouts/BaseLayout.astro"
+import BaseLayout from "@layouts/BaseLayout.astro";
 
 //components
-import Hero from "@components/landing/Hero.astro"
+import Hero from "@components/landing/Hero.astro";
+import ThemeToggle from "@components/global/ThemeToggle.astro";
 ---
 
 <BaseLayout title="Astro Minimal Starter">
-	<main>
-		<Hero />
-	</main>
+  <main>
+    <ThemeToggle />
+    <Hero />
+  </main>
 </BaseLayout>

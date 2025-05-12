@@ -13,10 +13,12 @@ interface Props {
 }
 
 const { title } = Astro.props;
+
+const theme = Astro.cookies.get("theme")?.value ?? "light";
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme={theme}>
   <Head title="Website" />
   <body class="container-full-layout">
     <Nav />

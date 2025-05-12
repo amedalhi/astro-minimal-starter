@@ -1,0 +1,46 @@
+---
+const themes = ["light", "dark"];
+
+const theme = Astro.cookies.get("theme")?.value ?? "light";
+---
+
+{
+  themes.map((t) => (
+    <label>
+      {t}
+      <input type="radio" checked={theme === t} name="themeSwitcher" id={t} />
+    </label>
+  ))
+}
+
+<style>
+  label {
+    margin-right: var(--space-xs);
+  }
+</style>
+
+<script>
+  type Themes = "light" | "dark";
+
+  const themeToggles = document.querySelectorAll('[name="themeSwitcher"]');
+
+  function changeTheme(theme: Themes) {
+    document.documentElement.setAttribute("data-theme", theme);
+  }
+
+  function saveTheme(theme: Themes) {
+    const d = new Date();
+    d.setTime(d.getTime() + 365 * 86400000);
+    document.cookie = `theme=${theme};expires=${d.toUTCString()}`;
+  }
+
+  function handleThemeClick(e: Event) {
+    const theme = (e.target as HTMLElement).id as Themes;
+    changeTheme(theme);
+    saveTheme(theme);
+  }
+
+  themeToggles.forEach((toggle) =>
+    toggle.addEventListener("change", handleThemeClick)
+  );
+</script>
