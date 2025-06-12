@@ -1,46 +1,196 @@
 ---
+//must also set theme in client script
 const themes = ["light", "dark"];
-
-const theme = Astro.cookies.get("theme")?.value ?? "light";
+const theme = Astro.cookies.get("theme")?.value ?? themes[0];
 ---
 
-{
-  themes.map((t) => (
-    <label>
-      {t}
-      <input type="radio" checked={theme === t} name="themeSwitcher" id={t} />
-    </label>
-  ))
-}
+<div class="theme-toggle">
+  <input
+    type="radio"
+    id="light-mode"
+    name="theme"
+    value="light"
+    checked={theme === "light"}
+  />
+  <label for="light-mode" class="theme-option">
+    <svg
+      class="theme-icon"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <circle cx="12" cy="12" r="5"></circle>
+      <path d="m12 1v2"></path>
+      <path d="m12 21v2"></path>
+      <path d="m4.22 4.22l1.42 1.42"></path>
+      <path d="m18.36 18.36l1.42 1.42"></path>
+      <path d="m1 12h2"></path>
+      <path d="m21 12h2"></path>
+      <path d="m4.22 19.78l1.42-1.42"></path>
+      <path d="m18.36 5.64l1.42-1.42"></path>
+    </svg>
+  </label>
 
-<style>
-  label {
-    margin-right: var(--space-xs);
-  }
-</style>
+  <input
+    type="radio"
+    id="dark-mode"
+    name="theme"
+    value="dark"
+    checked={theme === "dark"}
+  />
+  <label for="dark-mode" class="theme-option">
+    <svg
+      class="theme-icon"
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+    >
+      <path d="m12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+    </svg>
+  </label>
+
+  <div class="toggle-slider"></div>
+</div>
 
 <script>
-  type Themes = "light" | "dark";
+  document.addEventListener("DOMContentLoaded", () => {
+    const themes = ["light", "dark"];
+    type Themes = (typeof themes)[number];
+    const lightRadio = document.getElementById(
+      "light-mode"
+    ) as HTMLInputElement;
+    const darkRadio = document.getElementById("dark-mode") as HTMLInputElement;
 
-  const themeToggles = document.querySelectorAll('[name="themeSwitcher"]');
+    function getCurrentTheme() {
+      return document.documentElement.getAttribute("data-theme") || themes[0];
+    }
 
-  function changeTheme(theme: Themes) {
-    document.documentElement.setAttribute("data-theme", theme);
-  }
+    function changeTheme(theme: Themes) {
+      document.documentElement.setAttribute("data-theme", theme);
+    }
 
-  function saveTheme(theme: Themes) {
-    const d = new Date();
-    d.setTime(d.getTime() + 365 * 86400000);
-    document.cookie = `theme=${theme};expires=${d.toUTCString()}`;
-  }
+    function saveTheme(theme: Themes) {
+      const d = new Date();
+      d.setTime(d.getTime() + 365 * 86400000);
+      document.cookie = `theme=${theme};expires=${d.toUTCString()};path=/`;
+    }
 
-  function handleThemeClick(e: Event) {
-    const theme = (e.target as HTMLElement).id as Themes;
-    changeTheme(theme);
-    saveTheme(theme);
-  }
+    function handleThemeChange(event: Event) {
+      const target = event.target as HTMLInputElement;
+      const theme = target.value as Themes;
+      changeTheme(theme);
+      saveTheme(theme);
+    }
 
-  themeToggles.forEach((toggle) =>
-    toggle.addEventListener("change", handleThemeClick)
-  );
+    // Add event listeners
+    lightRadio?.addEventListener("change", handleThemeChange);
+    darkRadio?.addEventListener("change", handleThemeChange);
+
+    // On load: set theme from cookie and update radio buttons
+    const cookieTheme = document.cookie.match(/theme=([^;]+)/)?.[1];
+    const initialTheme =
+      typeof cookieTheme === "string" && themes.includes(cookieTheme)
+        ? cookieTheme
+        : themes[0];
+
+    changeTheme(initialTheme);
+
+    // Update radio button states
+    if (initialTheme === "light") {
+      lightRadio.checked = true;
+    } else {
+      darkRadio.checked = true;
+    }
+  });
 </script>
+
+<style>
+  .theme-toggle {
+    position: relative;
+    display: inline-flex;
+    background: #e5e7eb;
+    border-radius: 50px;
+    padding: 3px;
+    font-size: 12px;
+    font-weight: 600;
+    user-select: none;
+  }
+
+  .theme-toggle input[type="radio"] {
+    display: none;
+  }
+
+  .theme-option {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 46px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+    color: #6b7280;
+  }
+
+  .theme-icon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .toggle-slider {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: white;
+    border-radius: 42px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Light mode selected */
+  input[type="radio"]:checked + .theme-option {
+    color: #3d3d3d;
+  }
+
+  /* Dark mode selected */
+  input[type="radio"]#dark-mode:checked + .theme-option {
+    color: white;
+  }
+
+  /* Dark mode selected - move slider and change color */
+  input[type="radio"]#dark-mode:checked ~ .toggle-slider {
+    transform: translateX(100%);
+    background: #3d3d3d;
+  }
+
+  /* Dark theme styles */
+  [data-theme="dark"] .theme-toggle {
+    background: #374151;
+  }
+
+  [data-theme="dark"] .theme-option {
+    color: #9ca3af;
+  }
+
+  [data-theme="dark"] input[type="radio"]#light-mode:checked + .theme-option {
+    color: #f9fafb;
+  }
+
+  [data-theme="dark"] input[type="radio"]#dark-mode:checked + .theme-option {
+    color: #f9fafb;
+  }
+
+  /* Light mode selected - ensure slider is white */
+  input[type="radio"]#light-mode:checked ~ .toggle-slider {
+    background: white;
+  }
+</style>

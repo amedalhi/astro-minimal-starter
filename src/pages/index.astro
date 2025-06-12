@@ -6,10 +6,14 @@ import BaseLayout from "@layouts/BaseLayout.astro";
 import Hero from "@components/landing/Hero.astro";
 import ThemeToggle from "@components/global/ThemeToggle.astro";
 import ThemeSwitcher from "@components/global/ThemeSwitcher.astro";
+import { Icon } from "astro-icon/components";
+import Dark from "../icons/light.svg";
 ---
 
 <BaseLayout title="Astro Minimal Starter">
   <main>
+    <!-- <Icon name="material-symbols:nightlight" />
+    <Dark /> -->
     <ThemeToggle />
     <ThemeSwitcher />
     <Hero />

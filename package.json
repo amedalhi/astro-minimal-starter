@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "astro-minimal-starter",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,7 +9,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/node": "^9.2.1",
-    "astro": "^5.4.2"
+    "@astrojs/node": "^9.2.2",
+    "astro": "^5.9.2",
+    "astro-icon": "^1.1.5"
+  },
+  "devDependencies": {
+    "@iconify-json/material-symbols": "^1.2.26"
   }
 }

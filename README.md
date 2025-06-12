@@ -23,5 +23,11 @@
 
 ### 1. Config
 
-### Favicons 
+### Favicons
+
 WIP
+
+### Icons
+
+- Uses Astro-Icon package with Iconify by default (Material Symbols preinstalled)
+-
