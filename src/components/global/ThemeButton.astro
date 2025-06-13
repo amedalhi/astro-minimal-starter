@@ -48,7 +48,8 @@ const theme = Astro.cookies.get("theme")?.value ?? themes[0];
 
     // On load: set theme from cookie and update button
     const cookieTheme = document.cookie.match(/theme=([^;]+)/)?.[1];
-    const initialTheme = cookieTheme && themes.includes(cookieTheme) ? cookieTheme : themes[0];
+    const initialTheme =
+      cookieTheme && themes.includes(cookieTheme) ? cookieTheme : themes[0];
     changeTheme(initialTheme);
   });
 </script>

@@ -1,35 +1,38 @@
 ---
 //menu
-import { nav } from '@config/menu.json'
+import { nav } from "@config/menu.json";
+
+import ThemeToggle from "@components/global/ThemeToggle.astro";
 ---
 
 <header>
-    <div class="wrapper-main nav-wrapper">
-        <a href="/">AMS</a>
-        <nav>
-            <ul>
-                {
-                    nav.map((menu) => (
-                        <li>
-                            <a href={menu.path}>{menu.name}</a>
-                        </li>
-                    ))
-                }
-            </ul>
-        </nav>
-    </div>
+  <div class="wrapper-main nav-wrapper">
+    <a href="/">AMS</a>
+    <nav>
+      <ul>
+        {
+          nav.map((menu) => (
+            <li>
+              <a href={menu.path}>{menu.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <ThemeToggle />
+  </div>
 </header>
 
 <style>
-    .nav-wrapper {
-        display: flex;
-        justify-content: space-between;
-        padding: var(--space-m) 0;
-    }
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-m) 0;
+  }
 
-    ul {
-        display: flex;
-        flex-direction: row;
-        gap: var(--space-s);
-    }
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-s);
+  }
 </style>

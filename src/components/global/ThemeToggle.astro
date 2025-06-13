@@ -1,5 +1,4 @@
 ---
-//must also set theme in client script
 const themes = ["light", "dark"];
 const theme = Astro.cookies.get("theme")?.value ?? themes[0];
 ---
@@ -67,10 +66,6 @@ const theme = Astro.cookies.get("theme")?.value ?? themes[0];
     ) as HTMLInputElement;
     const darkRadio = document.getElementById("dark-mode") as HTMLInputElement;
 
-    function getCurrentTheme() {
-      return document.documentElement.getAttribute("data-theme") || themes[0];
-    }
-
     function changeTheme(theme: Themes) {
       document.documentElement.setAttribute("data-theme", theme);
     }
@@ -92,7 +87,7 @@ const theme = Astro.cookies.get("theme")?.value ?? themes[0];
     lightRadio?.addEventListener("change", handleThemeChange);
     darkRadio?.addEventListener("change", handleThemeChange);
 
-    // On load: set theme from cookie and update radio buttons
+    // Initialize theme from cookie
     const cookieTheme = document.cookie.match(/theme=([^;]+)/)?.[1];
     const initialTheme =
       typeof cookieTheme === "string" && themes.includes(cookieTheme)
@@ -101,7 +96,7 @@ const theme = Astro.cookies.get("theme")?.value ?? themes[0];
 
     changeTheme(initialTheme);
 
-    // Update radio button states
+    // Sync radio button states with initial theme
     if (initialTheme === "light") {
       lightRadio.checked = true;
     } else {
@@ -120,6 +115,11 @@ const theme = Astro.cookies.get("theme")?.value ?? themes[0];
     font-size: 12px;
     font-weight: 600;
     user-select: none;
+  }
+
+  /* Dark mode container styling */
+  .theme-toggle:has(#dark-mode:checked) {
+    background: #2d2d2d;
   }
 
   .theme-toggle input[type="radio"] {
@@ -156,41 +156,34 @@ const theme = Astro.cookies.get("theme")?.value ?? themes[0];
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  /* Light mode selected */
-  input[type="radio"]:checked + .theme-option {
+  /* Active state styling using :has() for consistency */
+  .theme-toggle:has(#light-mode:checked) .theme-option[for="light-mode"] {
     color: #3d3d3d;
   }
 
-  /* Dark mode selected */
-  input[type="radio"]#dark-mode:checked + .theme-option {
+  .theme-toggle:has(#dark-mode:checked) .theme-option[for="dark-mode"] {
     color: white;
   }
 
-  /* Dark mode selected - move slider and change color */
-  input[type="radio"]#dark-mode:checked ~ .toggle-slider {
+  .theme-toggle:has(#dark-mode:checked) .toggle-slider {
     transform: translateX(100%);
     background: #3d3d3d;
   }
 
-  /* Dark theme styles */
-  [data-theme="dark"] .theme-toggle {
-    background: #374151;
-  }
-
+  /* Global theme-based styling */
   [data-theme="dark"] .theme-option {
     color: #9ca3af;
   }
 
-  [data-theme="dark"] input[type="radio"]#light-mode:checked + .theme-option {
+  [data-theme="dark"]
+    .theme-toggle:has(#light-mode:checked)
+    .theme-option[for="light-mode"] {
     color: #f9fafb;
   }
 
-  [data-theme="dark"] input[type="radio"]#dark-mode:checked + .theme-option {
+  [data-theme="dark"]
+    .theme-toggle:has(#dark-mode:checked)
+    .theme-option[for="dark-mode"] {
     color: #f9fafb;
-  }
-
-  /* Light mode selected - ensure slider is white */
-  input[type="radio"]#light-mode:checked ~ .toggle-slider {
-    background: white;
   }
 </style>
