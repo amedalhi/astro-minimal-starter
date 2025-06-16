@@ -1,11 +1,67 @@
 ---
+//logo
+const logo = {
+  name: "MoonCrumbs",
+  image: "",
+  path: "/",
+};
+
+import { nav } from "@config/menu.json";
+---
+
+<header>
+  <div class="nav-wrapper wrapper-main margin-center nav-wrapper">
+    {logo.image != "" && <img src={logo.image} alt={logo.name} />}
+    <a href={logo.path}>{logo.name}</a>
+    <nav>
+      <ul>
+        {
+          nav.map((menu) => (
+            <li>
+              <a href={menu.path}>{menu.name}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0;
+
+    a {
+      text-decoration: none;
+    }
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+  }
+
+  ul {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  li {
+    list-style: none;
+  }
+</style>
+
+<!-- ---
 //menu
 import { nav } from "@config/menu.json";
 
 import ThemeToggle from "@components/global/ThemeToggle.astro";
----
-
-<header>
+--- --><!-- <header>
   <div class="wrapper-main margin-center nav-wrapper">
     <a href="/">AMS</a>
     <nav>
@@ -35,4 +91,4 @@ import ThemeToggle from "@components/global/ThemeToggle.astro";
     flex-direction: row;
     gap: var(--space-s);
   }
-</style>
+</style> -->
