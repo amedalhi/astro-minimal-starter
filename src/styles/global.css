@@ -135,6 +135,8 @@ p {
   --clr-border: var(--clr-gray);
   --clr-border-inverted: var(--clr-white);
 
+  --icon-filter: none;
+
   --clr-shadow: rgba(0, 0, 0, 0.2);
 
   /* for Button components */
@@ -199,6 +201,7 @@ p {
   :root {
     --clr-text: var(--cl-text-dark);
     --clr-bg: var(--cl-bg-dark);
+    --icon-filter: invert(1);
     color-scheme: dark;
   }
 }
@@ -206,12 +209,14 @@ p {
 [data-theme="dark"] {
   --clr-text: var(--cl-text-dark);
   --clr-bg: var(--cl-bg-dark);
+  --icon-filter: invert(1);
   color-scheme: dark; 
 }
 
 [data-theme="light"] {
   --clr-text: var(--cl-text);
   --clr-bg: var(--cl-bg);
+  --icon-filter: none;
   color-scheme: light;
 }
 

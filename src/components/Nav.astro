@@ -7,18 +7,36 @@ const logo = {
 };
 
 import { nav } from "@config/menu.json";
+const { pathname } = Astro.url;
 ---
 
-<header>
-  <div class="nav-wrapper wrapper-main margin-center nav-wrapper">
+<header class="wrapper-main margin-center">
+  <div class="nav-container">
     {logo.image != "" && <img src={logo.image} alt={logo.name} />}
     <a href={logo.path}>{logo.name}</a>
+    <!-- hamburger toggler -->
+    <button
+      class="mobile-nav-toggle"
+      aria-controls="mobile-nav"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Menu</span>
+    </button>
     <nav>
-      <ul>
+      <ul class="nav-list mobile-nav" id="mobile-nav" data-visible="false">
         {
           nav.map((menu) => (
-            <li>
-              <a href={menu.path}>{menu.name}</a>
+            <li class="nav-item">
+              <a
+                href={menu.url}
+                class={`nav-link ${
+                  (pathname === `${menu.url}/` || pathname === menu.url) &&
+                  "active"
+                }`}
+                aria-current={pathname === menu.url ? "page" : undefined}
+              >
+                {menu.name}
+              </a>
             </li>
           ))
         }
@@ -27,68 +45,91 @@ import { nav } from "@config/menu.json";
   </div>
 </header>
 
+<script>
+  import { toggleMobileNav } from "src/lib/nav/mobile-nav";
+  toggleMobileNav();
+</script>
+
 <style>
-  .nav-wrapper {
+  .nav-container {
     display: flex;
     justify-content: space-between;
-    padding: 1rem 0;
-
-    a {
-      text-decoration: none;
-    }
-  }
-
-  nav {
-    display: flex;
     align-items: center;
+    padding: 1rem 0;
+    width: 100%;
   }
 
-  ul {
+  .nav-list {
     display: flex;
     flex-direction: row;
-    align-items: baseline;
-    justify-content: center;
+    align-items: center;
     gap: 1rem;
   }
 
-  li {
-    list-style: none;
+  .nav-item:is(:hover, :active) {
+    color: var(--clr-text-light);
+    transition: all 0.2s ease;
+  }
+
+  .active {
+    border-bottom: solid 2px var(--clr-primary);
+  }
+
+  .mobile-nav-toggle {
+    display: none;
+  }
+
+  @media (max-width: 800px) {
+    .navbar {
+      padding: var(--space-m) 0 var(--space-xs);
+    }
+
+    .mobile-nav {
+      position: fixed;
+      inset: 0 0 0 25%;
+      z-index: 99;
+      background-color: var(--clr-bg);
+      border-left: 1px solid var(--clr-black);
+      flex-direction: column;
+      padding: var(--space-2xl) var(--space-m) 0 0;
+      align-items: flex-end;
+      font-size: var(--step-1);
+      transform: translateX(100%);
+      transition: transform 350ms ease-out;
+    }
+
+    .mobile-nav li {
+      margin-bottom: var(--space-s);
+
+      > .button {
+        margin-top: var(--space-l);
+      }
+    }
+
+    .mobile-nav[data-visible="true"] {
+      transform: translateX(0%);
+    }
+
+    .mobile-nav-toggle {
+      display: block;
+      position: absolute;
+      background: url("../../src/assets/icons/menu.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      width: 2rem;
+      aspect-ratio: 1;
+      top: 2rem;
+      right: 2rem;
+      z-index: 999;
+      border: 0;
+      filter: var(--icon-filter);
+    }
+
+    .mobile-nav-toggle[aria-expanded="true"] {
+      background: url("../../src/assets/icons/close.svg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      filter: var(--icon-filter);
+    }
   }
 </style>
-
-<!-- ---
-//menu
-import { nav } from "@config/menu.json";
-
-import ThemeToggle from "@components/global/ThemeToggle.astro";
---- --><!-- <header>
-  <div class="wrapper-main margin-center nav-wrapper">
-    <a href="/">AMS</a>
-    <nav>
-      <ul>
-        {
-          nav.map((menu) => (
-            <li>
-              <a href={menu.path}>{menu.name}</a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-    <ThemeToggle />
-  </div>
-</header>
-
-<style>
-  .nav-wrapper {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--space-m) 0;
-  }
-
-  ul {
-    display: flex;
-    flex-direction: row;
-    gap: var(--space-s);
-  }
-</style> -->

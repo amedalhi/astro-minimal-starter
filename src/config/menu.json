@@ -2,15 +2,15 @@
   "nav": [
     {
       "name": "Home",
-      "path": "/"
+      "url": "/"
     },
     {
       "name": "About",
-      "path": "/about"
+      "url": "/about"
     },
     {
       "name": "Contact",
-      "path": "/contact"
+      "url": "/contact"
     }
   ]
 }
