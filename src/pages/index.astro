@@ -3,14 +3,11 @@
 import BaseLayout from "@layouts/BaseLayout.astro";
 
 //components
-import Hero from "@components/landing/Hero.astro";
-
-import ThemeToggle from "@components/global/ThemeToggle.astro";
+const { title } = Astro.props;
 ---
 
-<BaseLayout title="Astro Minimal Starter">
-  <main class="wrapper-main margin-center">
-    <Hero />
-    <ThemeToggle />
+<BaseLayout title={title}>
+  <main>
+    <h1>Hello World</h1>
   </main>
 </BaseLayout>
