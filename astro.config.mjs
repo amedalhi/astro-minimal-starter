@@ -14,7 +14,4 @@ export default defineConfig({
   session: {
     driver: "redis",
   },
-  // experimental: {
-  //   session: true,
-  // },
 });
